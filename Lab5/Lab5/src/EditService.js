@@ -6,16 +6,19 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-const AddService = ({navigation}) => {
+const EditService = ({navigation}) => {
     const [serviceName, setServiceName] = useState('');
     const [price, setPrice] = useState();
     const [token, setToken] = useState("");
+    const [serviceID, setServiceID] = useState('');
 
     useEffect(() => {
       const getData = async () => {
         try {
           const fetchedToken = await AsyncStorage.getItem('token');
           setToken(fetchedToken);
+          const editID = await AsyncStorage.getItem('editID');
+          setServiceID(editID)
         } catch (error) {
           console.error(error);
         }
@@ -25,12 +28,13 @@ const AddService = ({navigation}) => {
     const headers = {
       'Authorization': `Bearer ${token}`
     }    
-    const addService = async () => {
+    const updateService = async () => {
+      const url = "https://kami-backend-5rs0.onrender.com/services/"+serviceID;
       const postData = { name: `${serviceName}`, price: `${price}` };
       axios
-        .post('https://kami-backend-5rs0.onrender.com/services', postData, {headers: headers})
+        .put(url, postData, {headers: headers})
         .then(response => {
-          Alert.alert("Thêm dịch vụ thành công!")
+          Alert.alert("Chỉnh sửa dịch vụ thành công!")
         })
         .catch(error => {
           Alert.alert("Đã có lỗi xảy ra!")
@@ -56,8 +60,8 @@ const AddService = ({navigation}) => {
                                         alignItems: 'center', 
                                         borderRadius: 50,
                                         backgroundColor: '#ef506b'}}
-                                onPress={addService}>
-                <Text style={{color: 'white', fontSize: 20}}>Add</Text>
+                                onPress={updateService}>
+                <Text style={{color: 'white', fontSize: 20}}>Update</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -70,5 +74,6 @@ const style = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
   },
+
 })
-export default AddService
+export default EditService

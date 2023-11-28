@@ -6,9 +6,9 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-const AddService = ({navigation}) => {
-    const [serviceName, setServiceName] = useState('');
-    const [price, setPrice] = useState();
+const AddCustomer = ({navigation}) => {
+    const [customerName, setCustomerName] = useState('');
+    const [phone, setPhone] = useState();
     const [token, setToken] = useState("");
 
     useEffect(() => {
@@ -25,12 +25,12 @@ const AddService = ({navigation}) => {
     const headers = {
       'Authorization': `Bearer ${token}`
     }    
-    const addService = async () => {
-      const postData = { name: `${serviceName}`, price: `${price}` };
+    const addCustomer = async () => {
+      const postData = { name: `${customerName}`, phone: `${phone}` };
       axios
-        .post('https://kami-backend-5rs0.onrender.com/services', postData, {headers: headers})
+        .post('https://kami-backend-5rs0.onrender.com/customers', postData, {headers: headers})
         .then(response => {
-          Alert.alert("Thêm dịch vụ thành công!")
+          Alert.alert("Thêm khách hàng thành công!")
         })
         .catch(error => {
           Alert.alert("Đã có lỗi xảy ra!")
@@ -41,22 +41,22 @@ const AddService = ({navigation}) => {
         <View>
           <View style={style.title}>
               <View style={{flexDirection: 'row', margin: 10}}>
-                <TouchableOpacity onPress={()=>{navigation.goBack()}} style={{marginTop: 5}}><Icon name="arrow-left" size={30} color="white"/></TouchableOpacity>
-                <Text style={{fontSize: 30, color: 'white'}}> Service</Text>
+                <TouchableOpacity onPress={()=>{navigation.goBack()}} style={{marginTop: 5}}><Icon name="arrow-left" size={20} color="white"/></TouchableOpacity>
+                <Text style={{fontSize: 20, color: 'white'}}> Add customer</Text>
               </View>
           </View>          
           <View style={{margin: 10}}>
-            <Text style={{marginBottom: 5}}>Service name *</Text>
-            <TextInput style={{backgroundColor: '#f2f2f7', borderRadius: 10, borderWidth:1, marginBottom: 20}} onChangeText={setServiceName}></TextInput>
-            <Text style={{marginBottom: 5}}>Price *</Text>
-            <TextInput style={{backgroundColor: '#f2f2f7', borderRadius: 10, borderWidth:1, marginBottom: 20}} onChangeText={setPrice}></TextInput>
+            <Text style={{marginBottom: 5}}>Customer name *</Text>
+            <TextInput placeholder="Input your customer's name"  style={{backgroundColor: '#f2f2f7', borderRadius: 10, borderWidth:1, marginBottom: 20}} onChangeText={setCustomerName}></TextInput>
+            <Text style={{marginBottom: 5}}>Phone *</Text>
+            <TextInput placeholder='Input phone number' style={{backgroundColor: '#f2f2f7', borderRadius: 10, borderWidth:1, marginBottom: 20}} onChangeText={setPhone}></TextInput>
             <TouchableOpacity style={{width: "100%", 
                                         height:40,
                                         justifyContent: 'center', 
                                         alignItems: 'center', 
                                         borderRadius: 50,
                                         backgroundColor: '#ef506b'}}
-                                onPress={addService}>
+                                onPress={addCustomer}>
                 <Text style={{color: 'white', fontSize: 20}}>Add</Text>
             </TouchableOpacity>
           </View>
@@ -71,4 +71,4 @@ const style = StyleSheet.create({
       alignItems: 'center',
   },
 })
-export default AddService
+export default AddCustomer

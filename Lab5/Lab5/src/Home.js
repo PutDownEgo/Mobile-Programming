@@ -4,7 +4,8 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { useFocusEffect } from '@react-navigation/native';
+import React from "react";
 
 
 const Home = ({ navigation }) => {
@@ -14,8 +15,9 @@ const Home = ({ navigation }) => {
 
     const fecthData = async () => {
         try {
-            const response = await axios.get('https://kami-backend-5rs0.onrender.com/services');
-            setServices(response.data)
+            const response = await fetch('https://kami-backend-5rs0.onrender.com/services');
+            const json = await response.json();
+            setServices(json)
         } catch (error) {
             console.error('Error:', error);
         }
@@ -28,18 +30,22 @@ const Home = ({ navigation }) => {
           const token = await AsyncStorage.getItem('token');
           setToken(token)
         } catch (e) {
+          console.log(e)
         }
     };
 
-    useEffect(() => {
-        getData();
-        fecthData();
-    }, [])
+    useFocusEffect(
+        React.useCallback(() => {
+            getData();
+            fecthData();
+        }, [])
+    );
 
     const getServiceID = async (itemId) => {
         AsyncStorage.setItem('serviceID', itemId);
         navigation.navigate("Service Detail")
     }
+
     const renderServiceItem = ({ item }) => {
         return (
             <TouchableOpacity style={style.item} onPress={() => getServiceID(item._id)}>

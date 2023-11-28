@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
                 AsyncStorage.setItem('name', name);
                 AsyncStorage.setItem('token', token);
 
-                navigation.navigate("Home")
+                navigation.navigate("Main")
             })
             .catch(error => {
                 Alert.alert("Tài khoản hoặc mật khẩu không chính xác!")
