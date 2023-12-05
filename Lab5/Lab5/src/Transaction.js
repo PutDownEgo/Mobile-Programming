@@ -10,7 +10,6 @@ import moment from 'moment';
 
 const Transaction = ({navigation}) => {
   const [transactions, setTransactions] = useState();
-
   const fecthData = async () => {
     try {
         const response = await fetch('https://kami-backend-5rs0.onrender.com/transactions');
@@ -36,7 +35,7 @@ const Transaction = ({navigation}) => {
       <TouchableOpacity onPress={() => getTransactionID(item._id)} style={{margin: 10,  borderWidth: 1, borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <View style={{margin: 10}}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{ fontWeight: "900", color: 'black'}}>{item.id}</Text>
+            <Text style={{ fontWeight: "900", color: 'black'}}>{item.id} {item.status === "cancelled"?" - "+item.status:""}</Text>
           </View>
           <View>
             {item.services.map(service => (
@@ -55,8 +54,7 @@ const Transaction = ({navigation}) => {
   };
 
   const addTransaction = () => {
-    console.log(transactions[0].services)
-    // navigation.navigate("Add Transaction")
+    navigation.navigate("Add Transaction")
   }
 
   return (

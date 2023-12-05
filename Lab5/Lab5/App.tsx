@@ -15,6 +15,9 @@ import Main from './src/Main';
 import EditService from './src/EditService';
 import AddCustomer from './src/AddCustomer';
 import TransactionDetail from './src/TransactionDetail';
+import CustomerDetail from './src/CustomerDetail';
+import EditCustomer from './src/EditCustomer';
+import AddTransaction from './src/AddTransaction';
 
 const Stack = createStackNavigator();
 const Tab  = createBottomTabNavigator(); 
@@ -30,6 +33,9 @@ export default function App() {
         <Stack.Screen name="Edit Service" component={EditService}/>
         <Stack.Screen name="Add Customer" component={AddCustomer}/>
         <Stack.Screen name="Transaction Detail" component={TransactionDetail}/>
+        <Stack.Screen name="Customer Detail" component={CustomerDetail}/>
+        <Stack.Screen name="Edit Customer" component={EditCustomer}/>
+        <Stack.Screen name="Add Transaction" component={AddTransaction}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

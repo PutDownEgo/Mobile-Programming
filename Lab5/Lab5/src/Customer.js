@@ -25,10 +25,14 @@ const Customer = ({navigation}) => {
         fecthData();
     }, [])
   );  
-
+  const getCustomerID = async (itemId) => {
+    AsyncStorage.setItem('customerID', itemId);
+    navigation.navigate("Customer Detail")
+  }
+  
   const renderCustomer = ({ item }) => {
     return (
-      <View style={{margin: 10, flexDirection: 'row', justifyContent: 'space-between', borderWidth: 1, borderRadius: 10}}>
+      <TouchableOpacity onPress={() => getCustomerID(item._id)} style={{margin: 10, flexDirection: 'row', justifyContent: 'space-between', borderWidth: 1, borderRadius: 10}}>
         <View style={{margin: 10}}>
           <View style={{flexDirection: 'row'}}>
             <Text>Customer: </Text>
@@ -43,8 +47,11 @@ const Customer = ({navigation}) => {
             <Text style={{ fontWeight: "bold", color: 'red'}}>{ item.totalSpent } đ</Text>
           </View>
         </View>
-        <Icon name="chess-queen" size={30} color="#ef506b" style={{margin: 20}}/>
-      </View>
+        <View style={{margin: 20, alignItems: 'center'}}>
+        <Icon name="chess-queen" size={30} color="#ef506b"/>
+        <Text style={{color: '#ef506b'}}>{ item.loyalty }</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
