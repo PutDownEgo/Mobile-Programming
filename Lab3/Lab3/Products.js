@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useEffect, useState } from "react";
 import { Alert, FlatList, View, Image, Button, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
@@ -23,7 +24,7 @@ export default function Products() {
             });
     }, []); 
 
-    const renderItem = ({ item }) => (
+    const renderItem = ({ item, navigation }) => (
         <View style={{marginBottom: 10, flexDirection: 'row', flex:1, backgroundColor: '#eeeee4'}}>
             <View style={{flex:1, alignItems: 'center'}}>
                 <Image source={{ uri: item.thumbnail }} style={{width: 80, height: 80}}/>
@@ -38,7 +39,8 @@ export default function Products() {
                 <Text>Brand: {item.brand}</Text>
                 <Text>Category: {item.category}</Text>
                 <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
-                    <Button title="DETAIL"></Button>
+                    <Button title="DETAIL"
+                            onPress={()=> navigation.navigate('Details')}></Button>
                     <Button title="ADD"></Button>
                     <Button title="DELETE"></Button>
                 </View>

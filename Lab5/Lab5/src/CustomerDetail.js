@@ -2,11 +2,12 @@ import { View, Text, StyleSheet, Modal, Alert} from 'react-native'
 import React, {useState, useEffect} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'; 
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CustomerDetail = ({navigation}) => {
     const [customerID, setCustomerID] = useState('');
@@ -106,7 +107,7 @@ const CustomerDetail = ({navigation}) => {
                   <Text style={{ marginBottom: 5 }}>Last update: {lastUpdate}</Text>
               </View>
           </View>
-          <View style={{ margin: 10, backgroundColor: 'white', padding: 10, borderRadius: 10 }}>
+          <ScrollView style={{ margin: 10, backgroundColor: 'white', padding: 10, borderRadius: 10 }}>
             <Text style={{ color: 'red', marginBottom: 10, fontSize: 20 }}>Transaction history</Text>
             {transactions.map(transaction => (
               <View key={transaction._id} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, marginBottom: 20, borderRadius: 10, padding: 10 }}>
@@ -121,7 +122,7 @@ const CustomerDetail = ({navigation}) => {
                 <Text style={{ marginLeft: 10, color: '#ef506b'}}>{transaction.price} đ</Text>
               </View>
             ))}
-          </View>
+          </ScrollView>
       </View>
     )
 }

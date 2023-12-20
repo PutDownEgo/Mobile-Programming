@@ -30,8 +30,30 @@ export default function AddProducts() {
         })
             .then((res)=> res.json())
             .then(console.log);
-        Alert.alert("Add successful")
+        if(title.length==0){
+            Alert.alert("Title required")
+        }
+        else if(description.length==0) {
+            Alert.alert("Description required")
+        }
+        else if(price.length==0) {
+            Alert.alert("Price required")
+        }
+        else if(discountPercentage.length==0) {
+            Alert.alert("Discount percentage required")
+        }
+        else if(rating.length==0) {
+            Alert.alert("Rating required")
+        }
+        else if(stock.length==0) {
+            Alert.alert("Stock required")
+        }
+        else {
+            Alert.alert("Add successful")
+        }
     }
+
+
 
     return (
         <ScrollView style={{flex:1, flexDirection: 'column'}}>
